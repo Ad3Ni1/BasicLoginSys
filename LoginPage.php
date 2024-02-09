@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="">
+    <form action="login.php" method="post">
         <h2>Login</h2>
         <label>Username</label>
-        <input type="text" name="uname" placeholder="User Name">
+        <input type="text" name="uname" placeholder="User Name"><br>
 
         <label>Password</label>
-        <input type="password" name="password" placeholder="Password">
+        <input type="password" name="pword" placeholder="Password"> <br>
 
         <button type="submit">Login</button>
     </form>
