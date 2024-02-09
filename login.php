@@ -8,16 +8,20 @@ if (isset($_POST['uname']) && isset($_POST['pword'])){
         return $data;
     }
 
-    $uname =  valdiate($_POST['uname']);
+    $uname =  validate($_POST['uname']);
     $pass = validate($_POST['pword']);
 
     if (empty($uname)){
-
+        header("Location: LoginPage.php?error=User name is required");
+        exit();
     }else if(empty($pass)){
-
+        header("Location: LoginPage.php?error=Password is required");
+        exit();
     }else{
         echo "Logged in";
     }
 }else{
-    header("Location: LoginPage.php")
+    header("Location: LoginPage.php");
+    exit();
 }
+?>
