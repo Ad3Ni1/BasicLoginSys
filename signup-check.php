@@ -17,7 +17,7 @@ if (isset($_POST['name']) && isset($_POST['uname'])
     $con_pass = validate($_POST['con_pword']);
 
     if (empty($uname)){
-        header("Location: LoginPage.php?error=User name is required");
+        header("Location: signup.php?error=User name is required");
         exit();
     }else if(empty($pass)){
         header("Location: LoginPage.php?error=Password is required");
@@ -47,7 +47,7 @@ if (isset($_POST['name']) && isset($_POST['uname'])
         }
     }
 }else{
-    header("Location: LoginPage.php");
+    header("Location: signup.php");
     exit();
 }
 ?>
