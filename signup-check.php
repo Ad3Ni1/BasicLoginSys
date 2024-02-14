@@ -16,12 +16,27 @@ if (isset($_POST['name']) && isset($_POST['uname'])
     $pass = validate($_POST['pword']);
     $con_pass = validate($_POST['con_pword']);
 
-    if (empty($uname)){
-        header("Location: signup.php?error=User name is required");
+    $user_data = 'uname' . $uname. '&name' . $name;
+
+    //echo $user_data;
+
+    if (empty($name)){
+        header("Location: signup.php?error=Name is required &$user_data");
+        exit();
+    }else if (empty($uname)){
+        header("Location: signup.php?error=User name is required &$user_data");
         exit();
     }else if(empty($pass)){
-        header("Location: LoginPage.php?error=Password is required");
+        header("Location: signup.php?error=Password is required &$user_data");
         exit();
+    }else if(empty($con_pass)){
+        header("Location: signup.php?error=Confirm password is needed &$user_data");
+        exit();
+    }else if($pass !== $con_pass){
+        header("Location: signup.php?error=Password and Confirm Password does not match &$user_data");
+        exit();
+
+
     }else{
         $sql = "SELECT * FROM users WHERE user_name = '$uname' AND password='$pass'";
 
@@ -37,12 +52,12 @@ if (isset($_POST['name']) && isset($_POST['uname'])
                 exit();
 
             }else{
-                header("Location: LoginPage.php?error=Incorrect username or password");
+                header("Location: signup.php?error=Incorrect username or password");
                 exit();
             }
 
         }else{
-            header("Location: LoginPage.php?error=Incorrect username or password");
+            header("Location: signup.php?error=Incorrect username or password");
             exit();
         }
     }
