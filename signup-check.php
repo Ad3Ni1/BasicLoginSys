@@ -38,27 +38,27 @@ if (isset($_POST['name']) && isset($_POST['uname'])
 
 
     }else{
-        $sql = "SELECT * FROM users WHERE user_name = '$uname' AND password='$pass'";
 
-        $result = mysqli_query($conn, $sql);
+        //password hashing
+        $pass = md5($pass);
 
-        if (mysqli_num_rows($result)){
-            $row = mysqli_fetch_assoc($result);
-            if($row['user_name'] === $uname && $row['password'] === $pass){
-                $_SESSION['user_name'] = $row['user_name'];
-                $_SESSION['name'] = $row['name'];
-                $_SESSION['id'] = $row['id'];
-                header("Location: homepage.php");
+        $sql_uname_check = "SELECT * FROM users WHERE user_name = '$uname' ";
+        $result_uname_check = mysqli_query($conn, $sql_uname_check);
+
+        if (mysqli_num_rows($result_uname_check) > 0){
+            header("Location: signup.php?error=User name is already taken try another &$user_data");
+            exit();
+        }else{
+            $sql_register = "INSERT INTO users(user_name, password, name) 
+            VALUES('$uname', '$pass', '$name')";
+            $result_register = mysqli_query($conn, $sql_register);
+            if ($result_register){
+                header("Location: signup.php?success=Your account has been signed up");
                 exit();
-
             }else{
-                header("Location: signup.php?error=Incorrect username or password");
+                header("Location: signup.php?error=Uknown error occured");
                 exit();
             }
-
-        }else{
-            header("Location: signup.php?error=Incorrect username or password");
-            exit();
         }
     }
 }else{
