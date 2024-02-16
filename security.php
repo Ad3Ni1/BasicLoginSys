@@ -32,8 +32,25 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
             //password hashing
             $OldPass = md5($OldPass);
             $NewPass = md5($NewPass);
+            $id = $_SESSION['id'];
 
-            
+            $sql = "SELECT password FROM users WHERE id='$id' AND password='$OldPass'";
+
+            $result = mysqli_query($conn, $sql);
+
+            if(mysqli_num_rows($result) === 1){
+
+                $sql_2 = "UPDATE users SET password = '$NewPass' WHERE id='id'";
+                mysqli_query($conn, $sql_2);
+                header("Location: SecurityPage.php?success=Your password has been updated");
+                exit();
+
+            }else{
+                header("Location: SecurityPage.php?error=That is not your old password");
+                exit();
+            }
+
+
         }
 
 

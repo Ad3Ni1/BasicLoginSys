@@ -15,6 +15,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
         <h2>Change Password</h2>
         <?php if (isset($_GET['error'])){ ?>
             <p class="error"><?php echo $_GET['error']; ?></p>
+        <?php }else if (isset($_GET['success'])){ ?>
+            <p class="success"><?php echo $_GET['success']; ?></p>
         <?php } ?>
 
         <label>Old Password</label>
